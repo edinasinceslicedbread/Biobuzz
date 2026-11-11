@@ -72,8 +72,8 @@ public class BioBuzzStarterbotTeleop extends OpMode {
      * in the launch() function to only run the windmill servo when the motor is spinning fast
      * enough to make a successful throw.
      */
-    public final int LAUNCHER_TARGET_VELOCITY = 1250;
-    public final int LAUNCHER_MIN_VELOCITY = 1200;
+    public final int LAUNCHER_TARGET_VELOCITY = 1350;
+    public final int LAUNCHER_MIN_VELOCITY = 1300;
 
     /*
      * These two variables store the power we need to apply to the motors. In other cases, we may
@@ -138,9 +138,9 @@ public class BioBuzzStarterbotTeleop extends OpMode {
         /*
          * set Feeders to an initial value to initialize the servo controller
          */
-        leftIntakeServo.setPower(0);
-        rightIntakeServo.setPower(0);
-        windmillServo.setPower(0);
+        leftIntakeServo.setPower(0.25);
+        rightIntakeServo.setPower(0.25);
+        windmillServo.setPower(0.1);
 
         /*
          * Much like our drivetrain motors, we set the right intake servo to reverse so that both
@@ -254,23 +254,24 @@ public class BioBuzzStarterbotTeleop extends OpMode {
         if (gamepad1.right_bumper) {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
         } else {
-            launcher.setVelocity(0);
+            launcher.setVelocity(1);
+
+
+            /*
+             * Here we ask if the driver is currently pressing the right bumper, AND the launcher is
+             * spinning fast enough to make a successful shot. If it is, then we will turn on the
+             * windmill servo to start feeding the elements into the launcher motor. We also
+             * add some power to the intake power. This can sometimes help dislodge stuck elements from
+             * inside the hopper.
+             */
+            if (gamepad1.right_bumper && launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
+                windmillServo.setPower(1);
+                intakePower += 0.5;
+            } else {
+                windmillServo.setPower(0.5);
+            }
         }
 
-        /*
-         * Here we ask if the driver is currently pressing the right bumper, AND the launcher is
-         * spinning fast enough to make a successful shot. If it is, then we will turn on the
-         * windmill servo to start feeding the elements into the launcher motor. We also
-         * add some power to the intake power. This can sometimes help dislodge stuck elements from
-         * inside the hopper.
-         */
-        if (gamepad1.right_bumper && launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
-            windmillServo.setPower(1);
-            intakePower += 0.5;
-        } else {
-            windmillServo.setPower(0);
-        }
+
     }
-
-
 }
