@@ -62,10 +62,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * main robot "loop," continuously checking for conditions that allow us to move to the next step.
  */
 
-@Autonomous(name="StarterBotAuto", group="StarterBot")
+@Autonomous(name = "StarterBotAuto", group = "StarterBot", preselectTeleOp = "BioBuzzStarterbotTeleop")
 //@Disabled
-public class StarterBotAuto extends OpMode
-{
+public class StarterBotAuto extends OpMode {
     /*
      * These two variables are used to control the velocity of the launcher motor.
      * They are both in encoder ticks per second. The motors we use in the FIRST Tech Challenge
@@ -253,14 +252,14 @@ public class StarterBotAuto extends OpMode
         switch (autonomousState) {
             case LAUNCH:
                 launch(true);
-                if(autoTimer.seconds() > 10){
+                if (autoTimer.seconds() > 10) {
                     launch(false);
                     intakePower = 0;
                     autonomousState = AutonomousState.DRIVE;
                 }
                 break;
             case DRIVE:
-                if(drive(DRIVE_SPEED, -120, DistanceUnit.MM, 2)){
+                if (drive(DRIVE_SPEED, -120, DistanceUnit.MM, 2)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
@@ -311,10 +310,10 @@ public class StarterBotAuto extends OpMode
     }
 
     /**
-     * @param speed From 0-1
-     * @param distance In specified unit
+     * @param speed        From 0-1
+     * @param distance     In specified unit
      * @param distanceUnit the unit of measurement for distance
-     * @param holdSeconds the number of seconds to wait at position before returning true.
+     * @param holdSeconds  the number of seconds to wait at position before returning true.
      * @return "true" if the motors are within tolerance of the target position for more than
      * holdSeconds. "false" otherwise.
      */
@@ -347,7 +346,7 @@ public class StarterBotAuto extends OpMode
          * the driveTimer. Only after we reach the target can the timer count higher than our
          * holdSeconds variable.
          */
-        if(Math.abs(targetPosition - leftDrive.getCurrentPosition()) > (TOLERANCE_MM * TICKS_PER_MM)){
+        if (Math.abs(targetPosition - leftDrive.getCurrentPosition()) > (TOLERANCE_MM * TICKS_PER_MM)) {
             driveTimer.reset();
         }
 
@@ -355,14 +354,14 @@ public class StarterBotAuto extends OpMode
     }
 
     /**
-     * @param speed From 0-1
-     * @param angle the amount that the robot should rotate
-     * @param angleUnit the unit that angle is in
+     * @param speed       From 0-1
+     * @param angle       the amount that the robot should rotate
+     * @param angleUnit   the unit that angle is in
      * @param holdSeconds the number of seconds to wait at position before returning true.
      * @return True if the motors are within tolerance of the target position for more than
-     *         holdSeconds. False otherwise.
+     * holdSeconds. False otherwise.
      */
-    boolean rotate(double speed, double angle, AngleUnit angleUnit, double holdSeconds){
+    boolean rotate(double speed, double angle, AngleUnit angleUnit, double holdSeconds) {
         final double TOLERANCE_MM = 10;
 
         /*
@@ -374,14 +373,14 @@ public class StarterBotAuto extends OpMode
          * need to travel, we just need to multiply the requested angle in radians by the radius
          * of our turning circle.
          */
-        double targetMm = angleUnit.toRadians(angle)*(TRACK_WIDTH_MM/2);
+        double targetMm = angleUnit.toRadians(angle) * (TRACK_WIDTH_MM / 2);
 
         /*
          * We need to set the left motor to the inverse of the target so that we rotate instead
          * of driving straight.
          */
-        double leftTargetPosition = -(targetMm*TICKS_PER_MM);
-        double rightTargetPosition = targetMm*TICKS_PER_MM;
+        double leftTargetPosition = -(targetMm * TICKS_PER_MM);
+        double rightTargetPosition = targetMm * TICKS_PER_MM;
 
         leftDrive.setTargetPosition((int) leftTargetPosition);
         rightDrive.setTargetPosition((int) rightTargetPosition);
@@ -392,7 +391,7 @@ public class StarterBotAuto extends OpMode
         leftDrive.setPower(speed);
         rightDrive.setPower(speed);
 
-        if((Math.abs(leftTargetPosition - leftDrive.getCurrentPosition())) > (TOLERANCE_MM * TICKS_PER_MM)){
+        if ((Math.abs(leftTargetPosition - leftDrive.getCurrentPosition())) > (TOLERANCE_MM * TICKS_PER_MM)) {
             driveTimer.reset();
         }
 
