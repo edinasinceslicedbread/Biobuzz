@@ -274,8 +274,11 @@ public class StarterBotAuto extends OpMode {
                 }
                 break;
             case COMPLETE:
-                leftDrive.setZeroPowerBehavior(BRAKE);
-                rightDrive.setZeroPowerBehavior(BRAKE);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+                intakePower= 0;
+                launch(false);
+
                 telemetry.addLine("Auto Complete!");
                 break;
         }
@@ -304,6 +307,13 @@ public class StarterBotAuto extends OpMode {
      */
     @Override
     public void stop() {
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftIntakeServo.setPower(0);
+        rightIntakeServo.setPower(0);
+        intakePower=0;
+        launcher.setVelocity(0);
+        windmillServo.setPower(0);
     }
 
     void launch(boolean input) {
