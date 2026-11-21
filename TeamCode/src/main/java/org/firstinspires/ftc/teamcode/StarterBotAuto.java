@@ -126,6 +126,7 @@ public class StarterBotAuto extends OpMode {
      * loops within loops, and "waits."
      */
     private enum AutonomousState {
+        DRIVEBEFORELAUNCH,
         LAUNCH,
         DRIVE,
         COMPLETE
@@ -250,6 +251,11 @@ public class StarterBotAuto extends OpMode {
          * we know our enum isn't reflecting a different state.
          */
         switch (autonomousState) {
+            case DRIVEBEFORELAUNCH:
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 1)) {
+                }
+                    break;
+
             case LAUNCH:
                 launch(true);
                 if (autoTimer.seconds() > 10) {
@@ -259,7 +265,7 @@ public class StarterBotAuto extends OpMode {
                 }
                 break;
             case DRIVE:
-                if (drive(DRIVE_SPEED, -120, DistanceUnit.MM, 2)) {
+                if (drive(DRIVE_SPEED, 120, DistanceUnit.MM, 2)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
