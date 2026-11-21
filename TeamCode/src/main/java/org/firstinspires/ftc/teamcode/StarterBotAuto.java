@@ -75,7 +75,7 @@ public class StarterBotAuto extends OpMode {
      * in the launch() function to only run the windmill servo when the motor is spinning fast
      * enough to make a successful throw.
      */
-    public final int LAUNCHER_TARGET_VELOCITY = 1250;
+    public final int LAUNCHER_TARGET_VELOCITY = 1450;
     public final int LAUNCHER_MIN_VELOCITY = 1200;
 
     /*
@@ -87,7 +87,7 @@ public class StarterBotAuto extends OpMode {
      * robot. Track width is used to determine the amount of linear distance each wheel needs to
      * travel to create a specified rotation of the robot.
      */
-    final double DRIVE_SPEED = 0.5;
+    final double DRIVE_SPEED = 0.75;
     final double ROTATE_SPEED = 0.2;
     final double WHEEL_DIAMETER_MM = 96;
     final double ENCODER_TICKS_PER_REV = 537.7;
