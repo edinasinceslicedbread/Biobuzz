@@ -258,6 +258,8 @@ public class StarterBotAuto extends OpMode {
                     break;
 
             case LAUNCH:
+                leftDrive.setZeroPowerBehavior(BRAKE);
+                rightDrive.setZeroPowerBehavior(BRAKE);
                 launch(true);
                 if (autoTimer.seconds() > 10) {
                     launch(false);
