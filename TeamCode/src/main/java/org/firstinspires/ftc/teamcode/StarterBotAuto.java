@@ -151,7 +151,7 @@ public class StarterBotAuto extends OpMode {
          * the state machine by moving to other enum members.
          * We do the same for our launcher state machine, setting it to IDLE before we use it later.
          */
-        autonomousState = AutonomousState.LAUNCH;
+        autonomousState = AutonomousState.DRIVEBEFORELAUNCH;
 
 
         /*
