@@ -351,7 +351,7 @@ public class StarterBotAuto extends OpMode {
          * use distanceUnit.toInches() instead!
          */
         double targetPosition = ((distanceUnit.toMm(distance) * TICKS_PER_MM)
-                + leftDrive.getCurrentPosition() + rightDrive.getCurrentPosition());
+                + leftDrive.getCurrentPosition());
 
         leftDrive.setTargetPosition((int) targetPosition);
         rightDrive.setTargetPosition((int) targetPosition);
