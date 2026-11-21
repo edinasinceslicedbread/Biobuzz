@@ -235,7 +235,7 @@ public class StarterBotAuto extends OpMode {
     public void start() {
         autoTimer.reset();
     }
-
+    ElapsedTime launchTimer = new ElapsedTime();
     /*
      * This code runs REPEATEDLY after the driver hits START but before they hit STOP.
      */
@@ -253,6 +253,7 @@ public class StarterBotAuto extends OpMode {
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
                 if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 1)) {
+                    launchTimer.reset();
                     autonomousState=AutonomousState.LAUNCH;
                 }
                     break;
@@ -261,7 +262,7 @@ public class StarterBotAuto extends OpMode {
                 leftDrive.setZeroPowerBehavior(BRAKE);
                 rightDrive.setZeroPowerBehavior(BRAKE);
                 launch(true);
-                if (autoTimer.seconds() > 10) {
+                if (launchTimer.seconds() > 10) {
                     launch(false);
                     intakePower = 0;
                     autonomousState = AutonomousState.DRIVE;
@@ -273,6 +274,8 @@ public class StarterBotAuto extends OpMode {
                 }
                 break;
             case COMPLETE:
+                leftDrive.setZeroPowerBehavior(BRAKE);
+                rightDrive.setZeroPowerBehavior(BRAKE);
                 telemetry.addLine("Auto Complete!");
                 break;
         }
@@ -312,7 +315,7 @@ public class StarterBotAuto extends OpMode {
 
         if (input && launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
             windmillServo.setPower(1);
-            intakePower += 0.5;
+            intakePower = 0.5;
         } else {
             windmillServo.setPower(0);
         }
@@ -337,7 +340,8 @@ public class StarterBotAuto extends OpMode {
          * unit we request from distanceUnit. But if we want to use inches in our function, we could
          * use distanceUnit.toInches() instead!
          */
-        double targetPosition = (distanceUnit.toMm(distance) * TICKS_PER_MM);
+        double targetPosition = ((distanceUnit.toMm(distance) * TICKS_PER_MM)
+                + leftDrive.getCurrentPosition() + rightDrive.getCurrentPosition());
 
         leftDrive.setTargetPosition((int) targetPosition);
         rightDrive.setTargetPosition((int) targetPosition);
