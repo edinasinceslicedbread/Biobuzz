@@ -253,6 +253,7 @@ public class StarterBotAuto extends OpMode {
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
                 if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 1)) {
+                    autonomousState=AutonomousState.LAUNCH;
                 }
                     break;
 
