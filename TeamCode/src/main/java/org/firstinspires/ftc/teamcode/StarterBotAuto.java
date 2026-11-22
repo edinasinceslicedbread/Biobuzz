@@ -75,8 +75,8 @@ public class StarterBotAuto extends OpMode {
      * in the launch() function to only run the windmill servo when the motor is spinning fast
      * enough to make a successful throw.
      */
-    public final int LAUNCHER_TARGET_VELOCITY = 1450;
-    public final int LAUNCHER_MIN_VELOCITY = 1200;
+    public final int LAUNCHER_TARGET_VELOCITY = 1350;
+    public final int LAUNCHER_MIN_VELOCITY = 1350;
 
     /*
      * Here we capture a few variables used in driving the robot. DRIVE_SPEED and ROTATE_SPEED
@@ -151,7 +151,7 @@ public class StarterBotAuto extends OpMode {
          * the state machine by moving to other enum members.
          * We do the same for our launcher state machine, setting it to IDLE before we use it later.
          */
-        autonomousState = AutonomousState.DRIVEBEFORELAUNCH;
+        autonomousState = AutonomousState.LAUNCH;
 
 
         /*
@@ -200,6 +200,8 @@ public class StarterBotAuto extends OpMode {
          * through any wiring.
          */
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(40, 0, 0, 12.5));
 
@@ -252,7 +254,7 @@ public class StarterBotAuto extends OpMode {
          */
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 1)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
                     launchTimer.reset();
                     autonomousState=AutonomousState.LAUNCH;
                 }
@@ -269,7 +271,7 @@ public class StarterBotAuto extends OpMode {
                 }
                 break;
             case DRIVE:
-                if (drive(DRIVE_SPEED, -50, DistanceUnit.MM, 2)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
