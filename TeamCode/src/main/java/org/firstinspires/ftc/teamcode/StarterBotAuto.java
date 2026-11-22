@@ -267,7 +267,7 @@ public class StarterBotAuto extends OpMode {
                 if (launchTimer.seconds() > 10) {
                     launch(false);
                     intakePower = 0;
-                    autonomousState = AutonomousState.DRIVE;
+                    autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
             case DRIVE:
