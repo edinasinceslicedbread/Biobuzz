@@ -103,7 +103,6 @@ public class StarterBotAuto extends OpMode {
      * of our auto as a whole.
      */
     private ElapsedTime driveTimer = new ElapsedTime();
-    private ElapsedTime autoTimer = new ElapsedTime();
 
     // Declare OpMode members.
     private DcMotor leftDrive = null;
@@ -235,7 +234,6 @@ public class StarterBotAuto extends OpMode {
      */
     @Override
     public void start() {
-        autoTimer.reset();
     }
     ElapsedTime launchTimer = new ElapsedTime();
     /*
@@ -254,7 +252,7 @@ public class StarterBotAuto extends OpMode {
          */
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
                     launchTimer.reset();
                     autonomousState=AutonomousState.LAUNCH;
                 }
@@ -271,13 +269,14 @@ public class StarterBotAuto extends OpMode {
                 }
                 break;
             case DRIVE:
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
             case COMPLETE:
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
+
                 intakePower= 0;
                 launch(false);
 
@@ -342,7 +341,7 @@ public class StarterBotAuto extends OpMode {
      * holdSeconds. "false" otherwise.
      */
     boolean drive(double speed, double distance, DistanceUnit distanceUnit, double holdSeconds) {
-        final double TOLERANCE_MM = 10;
+        final double TOLERANCE_MM = 0;
         /*
          * In this function we use a DistanceUnits. This is a class that the FTC SDK implements
          * which allows us to accept different input units depending on the user's preference.
