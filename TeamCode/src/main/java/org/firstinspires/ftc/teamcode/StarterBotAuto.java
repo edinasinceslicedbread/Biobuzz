@@ -150,7 +150,7 @@ public class StarterBotAuto extends OpMode {
          * the state machine by moving to other enum members.
          * We do the same for our launcher state machine, setting it to IDLE before we use it later.
          */
-        autonomousState = AutonomousState.LAUNCH;
+        autonomousState = AutonomousState.DRIVEBEFORELAUNCH;
 
 
         /*
@@ -252,6 +252,7 @@ public class StarterBotAuto extends OpMode {
          */
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
+                telemetry.addLine("DriveBeforeLaunch");
                 if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
                     launchTimer.reset();
                     autonomousState=AutonomousState.LAUNCH;
@@ -259,21 +260,24 @@ public class StarterBotAuto extends OpMode {
                     break;
 
             case LAUNCH:
+                telemetry.addLine("Launch");
                 leftDrive.setZeroPowerBehavior(BRAKE);
                 rightDrive.setZeroPowerBehavior(BRAKE);
                 launch(true);
                 if (launchTimer.seconds() > 10) {
                     launch(false);
                     intakePower = 0;
-                    autonomousState = AutonomousState.COMPLETE;
+                    autonomousState = AutonomousState.DRIVE;
                 }
                 break;
             case DRIVE:
+                telemetry.addLine("Drive");
                 if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
             case COMPLETE:
+                telemetry.addLine("Complete");
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
