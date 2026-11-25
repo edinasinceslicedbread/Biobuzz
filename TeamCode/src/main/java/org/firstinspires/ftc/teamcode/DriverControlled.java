@@ -72,7 +72,7 @@ public class DriverControlled extends OpMode {
      * in the launch() function to only run the windmill servo when the motor is spinning fast
      * enough to make a successful throw.
      */
-    public final int LAUNCHER_TARGET_VELOCITY = 1450;
+    public final int LAUNCHER_TARGET_VELOCITY = 1350;
     public final int LAUNCHER_MIN_VELOCITY = 1200;
 
     /*
@@ -138,9 +138,9 @@ public class DriverControlled extends OpMode {
         /*
          * set Feeders to an initial value to initialize the servo controller
          */
-        leftIntakeServo.setPower(0);
-        rightIntakeServo.setPower(0);
-        windmillServo.setPower(0);
+        leftIntakeServo.setPower(0.25);
+        rightIntakeServo.setPower(0.25);
+        windmillServo.setPower(0.1);
 
         /*
          * Much like our drivetrain motors, we set the right intake servo to reverse so that both
