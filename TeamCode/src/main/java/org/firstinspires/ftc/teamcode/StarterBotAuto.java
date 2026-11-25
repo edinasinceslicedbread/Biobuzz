@@ -253,13 +253,13 @@ public class StarterBotAuto extends OpMode {
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
                 telemetry.addLine("DriveBeforeLaunch");
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
-                    launchTimer.reset();
+                if (drive(DRIVE_SPEED, 100, DistanceUnit.MM, 2)) {
                     autonomousState=AutonomousState.LAUNCH;
                 }
                     break;
 
             case LAUNCH:
+                launchTimer.reset();
                 telemetry.addLine("Launch");
                 leftDrive.setZeroPowerBehavior(BRAKE);
                 rightDrive.setZeroPowerBehavior(BRAKE);
@@ -272,7 +272,7 @@ public class StarterBotAuto extends OpMode {
                 break;
             case DRIVE:
                 telemetry.addLine("Drive");
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
+                if (drive(DRIVE_SPEED, 100, DistanceUnit.MM, 2)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
