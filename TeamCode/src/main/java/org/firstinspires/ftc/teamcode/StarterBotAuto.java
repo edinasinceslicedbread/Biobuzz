@@ -253,7 +253,7 @@ public class StarterBotAuto extends OpMode {
         switch (autonomousState) {
             case DRIVEBEFORELAUNCH:
                 telemetry.addLine("DriveBeforeLaunch");
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
                     launchTimer.reset();
                     autonomousState=AutonomousState.LAUNCH;
                 }
@@ -272,7 +272,7 @@ public class StarterBotAuto extends OpMode {
                 break;
             case DRIVE:
                 telemetry.addLine("Drive");
-                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 0)) {
+                if (drive(DRIVE_SPEED, 50, DistanceUnit.MM, 2)) {
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
@@ -355,8 +355,7 @@ public class StarterBotAuto extends OpMode {
          * unit we request from distanceUnit. But if we want to use inches in our function, we could
          * use distanceUnit.toInches() instead!
          */
-        double targetPosition = ((distanceUnit.toMm(distance) * TICKS_PER_MM)
-                + leftDrive.getCurrentPosition());
+        double targetPosition = ((distanceUnit.toMm(distance) * TICKS_PER_MM));
 
         leftDrive.setTargetPosition((int) targetPosition);
         rightDrive.setTargetPosition((int) targetPosition);
